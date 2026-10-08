@@ -1,0 +1,14 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+import {train,predict,distanceKm,plan} from './model.mjs';
+const places=JSON.parse(readFileSync(new URL('./places.json',import.meta.url))),origin={lat:48.8566,lon:2.3522};
+test('held-out examples select the intended activities',()=>{for(const [text,intent] of [['I want a peaceful book break','calm'],['jog outdoors for exercise','active'],['photograph autumn birds','observe'],['a picnic with my family','social']])assert.equal(predict(text).intent,intent);});
+test('unknown words do not invent an intent',()=>assert.equal(predict('xylophone zeppelin').intent,null));
+test('empty and punctuation-only are unknown',()=>{assert.equal(predict('').intent,null);assert.equal(predict('!!!').intent,null);});
+test('training is repeatable and confidence bounded',()=>{assert.deepEqual(train(),train());const p=predict('birds');assert.ok(p.confidence>0&&p.confidence<=1);});
+test('identical coordinates have zero distance',()=>assert.equal(distanceKm(origin,origin),0));
+test('coordinates reject infinity and out of range',()=>{for(const lat of [91,NaN,Infinity])assert.throws(()=>distanceKm({...origin,lat},origin));});
+test('plan preserves time for return and outside',()=>{const p=plan({origin,minutes:90,intent:'calm',places}).place;assert.ok(p);assert.equal(p.travel*2+p.outside,90);assert.ok(p.outside>=10);});
+test('too little time gives an honest empty result',()=>assert.equal(plan({origin,minutes:10,intent:'calm',places}).place,null));
+test('invalid input rejects without a bogus recommendation',()=>{assert.throws(()=>plan({origin,minutes:NaN,intent:'calm',places}));assert.throws(()=>plan({origin,minutes:60,intent:null,places}));});
+test('choice can use an imported nearby place',()=>{const local=[{name:'User place',...origin,intents:['social']}];assert.equal(plan({origin,minutes:30,intent:'social',places:local}).place.name,'User place');});
+test('empty park pack returns no result',()=>assert.equal(plan({origin,minutes:30,intent:'calm',places:[]}).place,null));

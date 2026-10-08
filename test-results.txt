@@ -1,0 +1,19 @@
+✔ held-out examples select the intended activities (2.2818ms)
+✔ unknown words do not invent an intent (0.1825ms)
+✔ empty and punctuation-only are unknown (0.2179ms)
+✔ training is repeatable and confidence bounded (0.934ms)
+✔ identical coordinates have zero distance (0.1768ms)
+✔ coordinates reject infinity and out of range (0.2864ms)
+✔ plan preserves time for return and outside (0.2532ms)
+✔ too little time gives an honest empty result (0.1316ms)
+✔ invalid input rejects without a bogus recommendation (0.7031ms)
+✔ choice can use an imported nearby place (0.2157ms)
+✔ empty park pack returns no result (0.0972ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 85.1026

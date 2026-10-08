@@ -1,0 +1,5 @@
+[
+ {"name":"Jardin des Tuileries","lat":48.8635,"lon":2.3275,"intents":["calm","observe","social"],"source":"https://www.louvre.fr/decouvrir/les-jardins","note":"Check the official seasonal opening hours. Coordinates are approximate park centres, not entrance directions."},
+ {"name":"Parc Montsouris","lat":48.8218,"lon":2.3387,"intents":["active","observe","calm"],"source":"https://www.paris.fr/lieux/parc-montsouris-1810","note":"A park with a lake and trees. Check opening hours; terrain and accessibility are not verified by this app."},
+ {"name":"Parc Monceau","lat":48.8794,"lon":2.3090,"intents":["calm","social","observe"],"source":"https://www.paris.fr/lieux/parcs-jardins-et-bois/tous-les-horaires","note":"Verify current opening hours on the city page. Suitability tags are developer suggestions, not visitor reviews."}
+]
